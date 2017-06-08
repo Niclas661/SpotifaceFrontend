@@ -1,0 +1,85 @@
+//out: style2.css
+
+@bgcolor: #0C0C0C;
+@maincolor: #1C1C1C;
+@logocolorgradient: linear-gradient(0deg, #16FFAA, #4ae3ff);
+@logocolorgradientreverse: linear-gradient(180deg, #16FFAA, #4ae3ff);
+
+body{
+  color: #FFF;
+  background-color: @bgcolor;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+p{
+  font-family: 'Open Sans';
+}
+
+.container{
+  width: 80%;
+  min-height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: @maincolor;
+}
+
+
+nav{
+  width: 100%;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid lightblue;
+
+}
+nav div{
+  display: inline-block;
+}
+nav h1{
+  background: @logocolorgradient;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+nav #logo{
+}
+#logo img{
+  height: 120px;
+}
+nav #navtext h1:nth-child(1){
+  font-size: 72px;
+  font-family: 'Edwardian Script ITC';
+  text-align: left;
+  margin: 0px 0px 0px 0px;
+}
+nav h1:nth-child(3){
+  font-family: 'Edwardian Script ITC';
+  font-size: 42px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background: @logocolorgradientreverse;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+nav #navtext h2{
+  font-size: 40px;
+  font-family: 'Open Sans';
+  margin: 0px 0px 0px 0px;
+}
+
+
+main{
+  padding: 10px;
+  text-align: center;
+}
+main h1{
+  font-family: 'Bubbler One';
+}
+
+.left-align{
+  text-align: left;
+}
+.avatar-square{
+  border-radius: 50%;
+  margin-right: 10px;
+  float:left;
+}
