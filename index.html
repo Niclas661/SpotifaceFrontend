@@ -1,4 +1,4 @@
-<html ng-app="myApp">
+<html ng-app="spotiface">
   <head>
     <link href="https://fonts.googleapis.com/css?family=Bubbler+One|Open+Sans" rel="stylesheet">
     <link href="resources/css/style2.css" rel="stylesheet" />
@@ -29,15 +29,27 @@
           Spotiface works best with mobile devices, but you can choose to upload an image of yours!
         </p>
 
-        <div ng-show="chosenFile == null">
-          <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().uploadImage()" ng-model="photo">
+        <div class="analyzeResults">
+          <p>
+            Joy:
+          </p>
         </div>
-        <div ng-show="chosenFile != null">
+
+        <div ng-show="chosenFile == false">
+          <form>
+            <input type="file" accept="image/*" capture="camera" onchange="angular.element(this).scope().setFile(this)" ng-model="photo">
+          </form>
+        </div>
+
+        <div ng-show="chosenFile == true">
           <h1>Is this image okay?</h1>
-          <img src="resources/images/avatar.png" width="300px"/>
+          <img ng-src="{{imageSrc}}" width="300px"/>
           <div>
-            <button>Yes</button>
-            <button onclick="angular.element(this).scope().resetImage()">Try Again</button>
+            <button ng-click="analyzeImage()">Yes</button>
+            <button ng-click="resetImage()">Try Again</button>
+            <p>
+              {{ greeting.content }}
+            </p>
           </div>
         </div>
       </main>

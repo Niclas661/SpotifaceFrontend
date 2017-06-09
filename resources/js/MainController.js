@@ -1,12 +1,33 @@
-app.controller('MainController', ['$scope',function($scope){
-  $scope.chosenFile = null;
+app.controller('MainController', function($scope, $http){
+
+  $scope.chosenFile = false;
   $scope.uploadImage = function () {
     console.log("Changed");
-    console.log($scope.chosenFile);
-    $scope.chosenFile = "something";
+    $scope.chosenFile = true;
   };
   $scope.resetImage = function(){
     console.log("Reset");
-    $scope.chosenFile = null;
+    $scope.chosenFile = false;
   }
-}]);
+
+  $scope.setFile = function(element){
+    $scope.currentFile = element.files[0];
+    var reader = new FileReader();
+
+    reader.onload = function(event){
+      $scope.imageSrc = event.target.result;
+      $scope.$apply();
+    }
+    reader.readAsDataURL(element.files[0]);
+
+    $scope.uploadImage();
+  }
+
+  $scope.analyzeImage = function(){
+    $http.get('http://rest-service.guides.spring.io/greeting').
+    then(function(response){
+      $scope.greeting = response.data;
+    });
+
+  }
+});
