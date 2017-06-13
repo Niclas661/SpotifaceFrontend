@@ -6,10 +6,10 @@ app.directive('imageonload', function() {
         link: function(scope, element, attrs) {
             element.bind('load', function() {
                 //createCanvas(this);
-                alert('image is loaded');
+                console.log('image is loaded');
             });
             element.bind('error', function(){
-                alert('image could not be loaded');
+                console.log('image could not be loaded');
             });
         }
     };

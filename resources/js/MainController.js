@@ -1,50 +1,87 @@
-var faceMode = affdex.FaceDetectorMode.LARGE_FACES;
-var detector = new affdex.PhotoDetector(faceMode);
+var detector = new affdex.PhotoDetector();
+detector.detectAllEmotions();
+detector.detectAllExpressions();
+detector.detectAllEmojis();
+detector.detectAllAppearance();
 
+var test = null;
 var contxt = document.createElement('canvas').getContext('2d');
-console.log("v 1.04");
-
+console.log("v 1.07");
+var facedata = {};
 app.controller('MainController', function($scope, $http){
-  $scope.analyzeready = false;
   //Vars
   $scope.analyzing = false;
   $scope.analyzed = false;
   $scope.chosenFile = false;
+  $scope.greeting = "";
   $scope.introview = true;
+  $scope.emotions = {
+  };
 
-  //When detector is ready, show Yes button
-  detector.onInitialize = function(){
-    console.log("ready");
-    $scope.analyzeready = true;
-  };
-  //When detector has finished processing, show results
-  detector.onImageResultsSuccess = function(){
-    console.log("results here!!");
-  };
-  detector.onImageResultsFailure = function(){
-    console.log("process failed");
-  };
+  detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp){
+    document.getElementById("progressText").innerHTML = "Analysis complete";
+    console.log(faces);
+
+    console.log(image);
+    console.log(timestamp);
+    getResults();
+    $scope.analyzing = false;
+    $scope.emotions = faces[0].emotions;
+    $scope.analyzed = true;
+    console.log(faces[0].emotions);
+    console.log(faces[0].expressions);
+
+    
+
+    $http({
+      method: 'POST',
+      url: 'http://spotiface.azurewebsites.net/api/musicresult',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data: {
+        'Expressions': faces[0].expressions,
+        'Emotions': faces[0].emotions
+      }
+    }).then(function(response){
+      console.log(response);
+      $scope.greeting = response.data;
+      test = $scope.greeting;
+    });
+
+
+  });
+  detector.addEventListener("onInitializeSuccess", function(){
+    document.getElementById("progressText").innerHTML = "Analyzing image...";
+    if ($scope.analyzing == true){
+      processImage();
+    }
+    console.log("Initialized");
+  })
 
 
   $scope.uploadImage = function () {
     console.log("Image chosen");
+    if (detector && !detector.isRunning){
+      detector.start();
+    }
     $scope.chosenFile = true;
   };
   $scope.resetImage = function(){
     console.log("Reset");
     $scope.chosenFile = false;
     $scope.analyzed = false;
-    $scope.greeting = "";
     $scope.introview = true;
   }
 
   $scope.setFile = function(element){
     $scope.currentFile = element.files[0];
     var reader = new FileReader();
-
+    var img = new Image();
     reader.onload = function(event){
       $scope.imageSrc = event.target.result;
-      document.getElementById("previewImg").onload = createCanvas;
+      img.src = event.target.result;
+      img.onload = createCanvas;
 
       $scope.$apply();
 
@@ -60,21 +97,7 @@ app.controller('MainController', function($scope, $http){
     $scope.introview = false;
     $scope.analyzing = true;
     processImage();
-
-    //When detector has finished processing, show results
-    detector.onImageResultsSuccess = function(){
-      console.log("results here!!");
-    };
-    detector.onImageResultsFailure = function(){
-      console.log("process failed");
-    };
-
-    // $http.get('http://rest-service.guides.spring.io/greeting').
-    // then(function(response){
-    //   $scope.greeting = response.data;
-    //   $scope.analyzed = true;
-    // });
-
+    document.getElementById("choiceDiv").parentNode.removeChild(document.getElementById("choiceDiv"));
   }
 
 });
@@ -82,10 +105,13 @@ app.controller('MainController', function($scope, $http){
 function getResults(){
   console.log("results here");
   detector.stop();
+
+
+
 }
 
 function createCanvas(event){
-  detector.start();
+
 
   detector.detectAllEmotions();
   detector.detectAllExpressions();
@@ -94,7 +120,7 @@ function createCanvas(event){
   contxt.canvas.width = this.width;
   contxt.canvas.height = this.height;
   contxt.drawImage(this, 0, 0, this.width, this.height);
-  alert("Canvas drawn");
+  console.log("Canvas drawn");
 
   //
   // if (detector && detector.isRunning) {
@@ -104,13 +130,10 @@ function createCanvas(event){
 }
 
 function processImage(){
-  detector.detectAllEmotions();
-  detector.detectAllExpressions();
 
   if (detector && detector.isRunning) {
     console.log("processing...");
-    detector.process(contxt.getImageData(0, 0, 640, 480), 0);
-    console.log("method called");
+    detector.process(contxt.getImageData(0, 0, contxt.canvas.width, contxt.canvas.height), 0);
   }
   else{
     alert("Could not process image");

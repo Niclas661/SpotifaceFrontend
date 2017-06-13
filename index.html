@@ -2,7 +2,7 @@
   <head>
     <link href="https://fonts.googleapis.com/css?family=Bubbler+One|Open+Sans" rel="stylesheet">
     <link href="resources/css/style2.css" rel="stylesheet" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
   </head>
@@ -31,6 +31,7 @@
           </p>
         </div>
         <div class="analyzeResults" ng-show="analyzed == true">
+          <h1>Your mood:</h1>
           <p>
             Joy:
           </p>
@@ -42,21 +43,22 @@
           </form>
         </div>
 
-        <div ng-show="chosenFile == true">
+        <div ng-show="chosenFile == true && analyzed == false">
           <h1 ng-if="introview == true">Is this image okay?</h1>
-          <h1 ng-if="introview == false">Analyzing image...</h1>
-          <img ng-src="{{imageSrc}}" width="300px" id="previewImg" />
-          <div>
-            <button ng-show="analyzeready == true" ng-click="analyzeImage()">Yes</button>
+          <h1 ng-if="introview == false" id="progressText">Getting the tools working...</h1>
+          <img ng-src="{{imageSrc}}" width="60%" id="previewImg" />
+          <div id="choiceDiv">
+            <button id="analyzeBtn" ng-click="analyzeImage()">Yes</button>
             <button ng-click="resetImage()">Try Again</button>
             <p>
               <i>Note: If Yes button does not appear, the application is not ready yet to analyze</i>
             </p>
-            <p>
-              {{ greeting.content }}
-            </p>
           </div>
         </div>
+        <div ng-show="analyzed == true">
+          <h3>You should listen to {{ greeting["Song"]["Title"] }}</h3>
+        </div>
+
       </main>
 
     </div>
