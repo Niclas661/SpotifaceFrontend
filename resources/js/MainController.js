@@ -31,13 +31,13 @@ app.controller('MainController', function($scope, $http){
     console.log(faces[0].emotions);
     console.log(faces[0].expressions);
 
-    
+
 
     $http({
       method: 'POST',
       url: 'http://spotiface.azurewebsites.net/api/musicresult',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
       data: {
         'Expressions': faces[0].expressions,
