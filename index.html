@@ -21,15 +21,16 @@
 
       <!-- Main page -->
       <main ng-controller="MainController">
-        <h1>I can tell from your facial expression what type of music you need to listen to.</h1>
-        <p>
-          Well, hopefully...
-        </p>
-        <p>
-          Spotiface works best with mobile devices, but you can choose to upload an image of yours!
-        </p>
-
-        <div class="analyzeResults">
+        <div ng-show="introview == true">
+          <h1>I can tell from your facial expression what type of music you need to listen to.</h1>
+          <p>
+            Well, hopefully...
+          </p>
+          <p>
+            Spotiface works best with mobile devices, but you can choose to upload an image of yours!
+          </p>
+        </div>
+        <div class="analyzeResults" ng-show="analyzed == true">
           <p>
             Joy:
           </p>
@@ -42,11 +43,15 @@
         </div>
 
         <div ng-show="chosenFile == true">
-          <h1>Is this image okay?</h1>
-          <img ng-src="{{imageSrc}}" width="300px"/>
+          <h1 ng-if="introview == true">Is this image okay?</h1>
+          <h1 ng-if="introview == false">Analyzing image...</h1>
+          <img ng-src="{{imageSrc}}" width="300px" id="previewImg" />
           <div>
-            <button ng-click="analyzeImage()">Yes</button>
+            <button ng-show="analyzeready == true" ng-click="analyzeImage()">Yes</button>
             <button ng-click="resetImage()">Try Again</button>
+            <p>
+              <i>Note: If Yes button does not appear, the application is not ready yet to analyze</i>
+            </p>
             <p>
               {{ greeting.content }}
             </p>
@@ -55,8 +60,12 @@
       </main>
 
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <!-- <script src="resources/js/affdex.js"></script> -->
+    <script src="https://download.affectiva.com/js/3.2/affdex.js"></script>
     <script src="resources/js/app.js"></script>
     <script src="resources/js/MainController.js"></script>
+
   </body>
 </html>
