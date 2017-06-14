@@ -4,9 +4,7 @@ detector.detectAllExpressions();
 detector.detectAllEmojis();
 detector.detectAllAppearance();
 
-var test = null;
 var contxt = document.createElement('canvas').getContext('2d');
-console.log("v 1.07");
 var facedata = {};
 app.controller('MainController', function($scope, $http){
   //Vars
@@ -21,15 +19,10 @@ app.controller('MainController', function($scope, $http){
   detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp){
     document.getElementById("progressText").innerHTML = "Analysis complete";
     console.log(faces);
-
-    console.log(image);
-    console.log(timestamp);
     getResults();
     $scope.analyzing = false;
     $scope.emotions = faces[0].emotions;
-    $scope.analyzed = true;
-    console.log(faces[0].emotions);
-    console.log(faces[0].expressions);
+
 
 
 
@@ -44,9 +37,8 @@ app.controller('MainController', function($scope, $http){
         'Emotions': faces[0].emotions
       }
     }).then(function(response){
-      console.log(response);
       $scope.greeting = response.data;
-      test = $scope.greeting;
+      $scope.analyzed = true;
     });
 
 

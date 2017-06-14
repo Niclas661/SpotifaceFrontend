@@ -33,7 +33,7 @@
         <div class="analyzeResults" ng-show="analyzed == true">
           <h1>Your mood:</h1>
           <p>
-            Joy:
+            Joy: {{ greeting["Mood"]["Emotions"]["joy"] }}
           </p>
         </div>
 
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div ng-show="analyzed == true">
-          <h3>You should listen to {{ greeting["Song"]["Title"] }}</h3>
+          <h2>You should listen to {{ greeting["Song"]["Title"] }}</h2>
         </div>
 
       </main>

@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Bubbler+One|Open+Sans" rel="stylesheet">
+    <link href="resources/css/style2.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <div id="logo">
+          <img src="resources/images/spotiface logo.png"/>
+        </div>
+        <div id="navtext">
+          <h1>Spotiface</h1>
+          <h2>Music for your mood</h2>
+        </div>
+        <h1><a href="about.html">Home</a></h1>
+      </nav>
+
+      <!-- Main page -->
+      <main>
+
+        <div style="text-align:left;">
+          <h1>Spotiface</h1>
+          <p>
+            Spotiface was made using AngularJS, HTML5 and LESS, with the backend made in C# using the ASP.NET Web API template.
+          </p>
+          <h1>How it all works</h1>
+          <h2>
+            Emotion recognition
+          </h2>
+          <p>
+            First, Spotiface needs to get data about your face: you submit a photo or take a picture on your mobile phone, and that image is processed using the Affectiva Emotion SDK.
+          </p>
+          <p>
+            The SDK returns data about your emotions, but also your expressions like jaw drop or eyes closing. These will be sent to the Spotiface backend for further analysis.
+          </p>
+          <h2>
+            Genre Finding
+          </h2>
+          <p>
+            In the backend, the face recognition data will be used to find your current mood and what genre to suggest. Since data about eyebrow furrow, lip stretching and so forth is taken into consideration when finding a genre, two happy people might not get the same results!
+          </p>
+          <h1>About me and why I made this</h1>
+          <p>
+            I find it exciting that cognitive services are a thing nowadays. I could have never imagined that computers could identify people, and I have come to know the difficulty in computers understanding images and voices.
+          </p>
+          <p>
+            After helping creating a chatbot during a college class, I wanted to create something and use the powers of cognitive services. Spotiface came to be a doable summer project for me! I hope you find yourself just as impressed as I am about this application!
+          </p>
+          <p>
+            / Niclas
+          </p>
+        </div>
+
+      </main>
+
+    </div>
+
+  </body>
+</html>
