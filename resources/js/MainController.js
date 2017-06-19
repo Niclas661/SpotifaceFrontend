@@ -15,13 +15,15 @@ app.controller('MainController', function($scope, $http){
   $scope.introview = true;
   $scope.emotions = {
   };
+  $scope.emojis = {
+  };
 
   detector.addEventListener("onImageResultsSuccess", function(faces, image, timestamp){
     document.getElementById("progressText").innerHTML = "Analysis complete";
     console.log(faces);
-    getResults();
     $scope.analyzing = false;
     $scope.emotions = faces[0].emotions;
+    $scope.emojis = faces[0].emojis;
 
 
 
@@ -38,6 +40,7 @@ app.controller('MainController', function($scope, $http){
       }
     }).then(function(response){
       $scope.greeting = response.data;
+      console.log(response.data);
       $scope.analyzed = true;
     });
 
@@ -93,14 +96,6 @@ app.controller('MainController', function($scope, $http){
   }
 
 });
-
-function getResults(){
-  console.log("results here");
-  detector.stop();
-
-
-
-}
 
 function createCanvas(event){
 

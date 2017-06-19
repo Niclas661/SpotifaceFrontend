@@ -32,9 +32,10 @@
         </div>
         <div class="analyzeResults" ng-show="analyzed == true">
           <h1>Your mood:</h1>
-          <p>
-            Joy: {{ greeting["Mood"]["Emotions"]["joy"] }}
+          <p class="capitalize">
+            {{ greeting["PrimaryEmotion"] }} {{ emojis["dominantEmoji"] }}
           </p>
+
         </div>
 
         <div ng-show="chosenFile == false">
@@ -56,7 +57,12 @@
           </div>
         </div>
         <div ng-show="analyzed == true">
-          <h2>You should listen to {{ greeting["Song"]["Title"] }}</h2>
+          <h2>You should listen to</h2>
+          <h1>{{ greeting["Song"]["Genre"] }}</h1>
+          <img src="{{ greeting['Song']['ImageURL'] }}" width="50%"/>
+          <h3>{{ greeting["Song"]["Title"] }}</h3>
+          <h3>{{ greeting["Song"]["Artist"]["Name"] }} </h3>
+          <h3>{{ greeting["Song"]["Duration"] | date:'mm:ss' }}</h3>
         </div>
 
       </main>

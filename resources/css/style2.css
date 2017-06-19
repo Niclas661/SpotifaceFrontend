@@ -60,6 +60,9 @@ main h1,
 main h2 {
   font-family: 'Bubbler One';
 }
+.capitalize:first-letter {
+  text-transform: capitalize;
+}
 .left-align {
   text-align: left;
 }
